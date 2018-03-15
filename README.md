@@ -95,6 +95,9 @@ If you need display or some kind of user interface to this arduino controller, l
 
 ### Part 2. Orange PI + cloud monitoring
 
+![wiring](https://github.com/abuharsky/BBQer/raw/master/info/bbq_diagram3.jpg)
+
+
 ### Hardware
 
 I recommend to use an orange pi lite (~12$).
