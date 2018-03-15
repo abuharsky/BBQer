@@ -13,11 +13,20 @@ As for me, this is not an easy way.
 
 I hope, that I can explain to you, how to get very easy, cheap, really, extra-cheap controller with an optional cloud monitoring, that perfectly solve every BBQSmoking needs!
 
-Let's begin!
+### Let's begin!
 
 
 What's is the main problem for Low&Slow smoking?! Right, it takes too many hours! You need to constantly maintain temperature level and smoke density.
 
 For maintaining constant temperature you need to always change an airflow using damper.
 
-So, airflow provide the main heat and smoke transfer from burning wood and charcoals to the meat.
+Airflow provide the main heat and smoke transfer from burning wood and charcoals to the meat.
+
+![standart offset smoker](https://github.com/abuharsky/BBQer/raw/master/info/bbq_diagram1.png)
+
+So, we need only to add a simple temperature sensor and electronically controlled air blower/damper.
+Controller periodically reads temperature and adjust the airflow.
+
+![standart offset smoker with temperature controller](https://github.com/abuharsky/BBQer/raw/master/info/bbq_diagram2.png)
+
+That's how does it must work.
