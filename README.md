@@ -31,6 +31,8 @@ That's how does it must work.
 
 ### Part 1. Arduino based controller
 
+### Hardware
+
 As I say before, I don't think that we need to be an engineer with soldering skills! You don't need to solder anything (maybe exept few connectors).
 
 You need to buy:
@@ -61,3 +63,18 @@ Also, you can optionally purchase:
 
 1x [thermo probe (~7$)](https://ru.aliexpress.com/item/Thermopro-Thermometer-extra-probe/32778050836.html?spm=a2g0s.9042311.0.0.jh7MDU)  
 
+
+### Software
+
+to be continued
+
+### Part 2. Orange PI + cloud monitoring
+
+### Hardware
+
+I recommend to use an orange pi lite (~12$).
+
+### Software
+### Cloud monitoring
+
+corlysis.com + Grafana! Perfect!
