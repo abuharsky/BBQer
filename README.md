@@ -16,3 +16,5 @@ I hope, that I can explain to you, how to get very easy, cheap, really, extra-ch
 Let's begin!
 
 
+What's is the main problem for Low&Slow smoking?! Right, it is take too many hours! You need to constantly maintain temperature level and smoke density.
+
