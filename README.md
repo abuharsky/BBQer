@@ -11,7 +11,7 @@ Or it cost too much!
 
 As for me, this is not an easy way.
 
-I hope, that I can explain to you, how to get very easy, cheap, really, extra-cheap controller with an optional cloud monitoring!
+I hope, that I can explain to you, how to get very easy, cheap, really, extra-cheap controller with an optional cloud monitoring, that perfectly solve every BBQSmoking needs!
 
 Let's begin!
 
