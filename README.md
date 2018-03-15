@@ -66,6 +66,9 @@ Also, you can optionally purchase:
 
 1x [thermo probe (~7$)](https://ru.aliexpress.com/item/Thermopro-Thermometer-extra-probe/32778050836.html?spm=a2g0s.9042311.0.0.jh7MDU) for food(meat) temperature control. You can connect up to 8 probes.
 
+![wiring](https://github.com/abuharsky/BBQer/raw/master/info/pic2.png)
+
+
 
 ### Software
 
@@ -115,6 +118,7 @@ So, after you setup your PI (you can use one of thousands instructions from inte
 
 After installing, copy 
 BBQer/cloudClient/bbqcontroller.py
+
 BBQer/cloudClient/configuration_empty.txt
 
 to your pi home dir, then, **rename configuration_empty.txt** to **configuration.txt** and fill required parameters
@@ -128,3 +132,5 @@ I recommend to use **corlysis.com** , free account is enough for our temperature
 Setup database, than copy required db name and token to **configuration.txt**, than open grafana and import dashboard from **grafana.json**
 
 Now, you can use your mobile phone to control your BBQ, view temperature graphs and receive notifications!
+
+![wiring](https://github.com/abuharsky/BBQer/raw/master/info/pic1.png)
