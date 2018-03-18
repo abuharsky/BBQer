@@ -132,6 +132,8 @@ We will use telegram bot for sending commands to controller and receive informat
 
 I recommend to use **corlysis.com** , free account is enough for our temperature monitoring.
 
+![wiring](https://github.com/abuharsky/BBQer/raw/master/info/temperature_graph.png)
+
 Setup database, than copy required db name and token to **configuration.txt**, than open grafana and import dashboard from **grafana.json**
 
 Now, you can use your mobile phone to control your BBQ, view temperature graphs and receive notifications!

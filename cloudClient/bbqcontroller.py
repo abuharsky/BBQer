@@ -4,7 +4,7 @@ from telepot.loop import MessageLoop
 
 #read conf
 config = configparser.ConfigParser()
-config.read('configuration.txt')
+config.read('/root/BBQer/cloudClient/configuration.txt')
 
 usbDevice = config.get('arduino', 'port')
 usbSpeed  = config.get('arduino', 'baud')
