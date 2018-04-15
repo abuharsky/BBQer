@@ -13,8 +13,8 @@
 
 #define MOTOR_PIN 11
 
-#define PROBE0_PIN A7
-#define PROBE1_PIN A4
+#define PROBE0_PIN A4
+#define PROBE1_PIN A7
 
 #define THERMO_S0  2
 #define THERMO_CS  3
