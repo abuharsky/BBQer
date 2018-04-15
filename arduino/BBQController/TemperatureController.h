@@ -10,6 +10,7 @@
 class TemperatureController {
     Damper &damper;
     ThermoProbe &probe0;
+    ThermoProbe &probe1;
     DCMotor &motor;
     MAX6675 &thermocouple;
 
@@ -32,8 +33,8 @@ class TemperatureController {
     float airFlowDownStep = 0.05; // percent
 
   public:
-    TemperatureController(Damper &damper, DCMotor &motor, MAX6675 &thermocouple, ThermoProbe &probe0) :
-      damper(damper), motor(motor), thermocouple(thermocouple), probe0(probe0) {
+    TemperatureController(Damper &damper, DCMotor &motor, MAX6675 &thermocouple, ThermoProbe &probe0, ThermoProbe &probe1) :
+      damper(damper), motor(motor), thermocouple(thermocouple), probe0(probe0), probe1(probe1) {
     }
 
     void setup() {
@@ -195,6 +196,7 @@ class TemperatureController {
           Serial.print("\"temperature\": {");
               Serial.print("\"current\": \"");  Serial.print(thermocouple.readCelsius()); Serial.print("\",");
               Serial.print("\"probe0\": \"");   Serial.print(probe0.readCelsius());       Serial.print("\",");
+              Serial.print("\"probe1\": \"");   Serial.print(probe1.readCelsius());       Serial.print("\",");
               Serial.print("\"target\": \"");   Serial.print(targetTemperature);          Serial.print("\"");
           Serial.print("}");
       Serial.print("}");

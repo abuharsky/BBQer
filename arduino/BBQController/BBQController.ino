@@ -14,6 +14,7 @@
 #define MOTOR_PIN 11
 
 #define PROBE0_PIN A7
+#define PROBE1_PIN A4
 
 #define THERMO_S0  2
 #define THERMO_CS  3
@@ -26,8 +27,9 @@ DCMotor motor(MOTOR_PIN);
 Damper damper(smoothServo, SERVO_MIN_ANGLE, SERVO_MAX_ANGLE);
 MAX6675 thermocouple(THERMO_CLK, THERMO_CS, THERMO_S0);
 ThermoProbe probe0(PROBE0_PIN);
+ThermoProbe probe1(PROBE1_PIN);
 
-TemperatureController controller(damper, motor, thermocouple, probe0);
+TemperatureController controller(damper, motor, thermocouple, probe0, probe1);
 
 SerialCommand sCmd;
 
@@ -49,8 +51,6 @@ void setup()
   sCmd.setDefaultHandler(unrecognized);
 
   Serial.println("Ready");
-
-  controller.printParameters();
 }
 
 void loop()
@@ -58,6 +58,7 @@ void loop()
   motor.loop();
   controller.loop();
   probe0.loop();
+  probe1.loop();
   sCmd.readSerial();
 }
 
@@ -141,8 +142,10 @@ void setControllerParameters() {
 void getTemperature() {
   Serial.print("[TEMP] PIT=");
   Serial.print(thermocouple.readCelsius());
-  Serial.print("C, PROBE0=");
+  Serial.print("C, PROBE1=");
   Serial.print(probe0.readCelsius());
+  Serial.print("C, PROBE2=");
+  Serial.print(probe1.readCelsius());
   Serial.print("C");
   Serial.println();
 }

@@ -33,13 +33,14 @@ def plot_json(data):
     motor    = obj["airflow"]["motor"]
     curtemp  = obj["temperature"]["current"]
     probe0   = obj["temperature"]["probe0"]
+    probe1   = obj["temperature"]["probe1"]
     target   = obj["temperature"]["target"]
 
     url = 'https://corlysis.com:8086/write'
     
     params = {"db": dbName, "u": "token", "p": dbToken}
     
-    payload = "temperature_data current="+curtemp+",target="+target+",probe0="+probe0+"\nairflow_data level="+airflow+",damper="+damper+",motor="+motor+"\n"
+    payload = "temperature_data current="+curtemp+",target="+target+",probe0="+probe0+",probe1="+probe1+"\nairflow_data level="+airflow+",damper="+damper+",motor="+motor+"\n"
     
     r = requests.post(url, params=params, data=payload)
 
