@@ -3,7 +3,7 @@
 
 # BBQer
 Hello, my name is Alex, I'm from Russia and I love BBQ!
-So, BBQ Smokers are not so popular in Russia, thats why I'am the best in my small town ( not serious :) )!
+So, BBQ Smokers are not so popular in Russia, thats why I'am the only one in my small town - therefore the best :) !
 
 There are a lot of different handmade of factorymade BBQ Smoker temperature controllers, but for me all of them have too many limitations.
 For example, for assembling very popular "HeaterMeter" you need to be an good engineer with soldering skills.
