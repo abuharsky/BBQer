@@ -15,7 +15,7 @@ botToken     = config.get('telegram', 'botToken')
 proxyType    = config.get('telegram', 'proxyType')
 proxyAddress = config.get('telegram', 'proxyAddress')
 
-if proxyType && proxyAddress:
+if proxyType AND proxyAddress:
 	apihelper.proxy = {proxyType:proxyAddress}
 
 dbName    = config.get('corlysis', 'db')
