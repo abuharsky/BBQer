@@ -5,6 +5,8 @@ baud=115200
 [telegram]
 chatId=111222
 botToken=511122334455:XXXXXXXXX-XXXXXXXXX-XXXXXXXXX
+proxyType=
+proxyAddress=
 
 [corlysis]
 db=BBQControl

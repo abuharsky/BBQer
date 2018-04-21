@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import telepot, time, serial, threading, json, datetime, requests, configparser, os
 from telepot.loop import MessageLoop
+from telebot import apihelper
 
 #read conf
 config = configparser.ConfigParser()
@@ -9,8 +10,13 @@ config.read('/root/BBQer/cloudClient/configuration.txt')
 usbDevice = config.get('arduino', 'port')
 usbSpeed  = config.get('arduino', 'baud')
 
-chatId    = config.get('telegram', 'chatId')
-botToken  = config.get('telegram', 'botToken')
+chatId       = config.get('telegram', 'chatId')
+botToken     = config.get('telegram', 'botToken')
+proxyType    = config.get('telegram', 'proxyType')
+proxyAddress = config.get('telegram', 'proxyAddress')
+
+if proxyType && proxyAddress:
+	apihelper.proxy = {proxyType:proxyAddress}
 
 dbName    = config.get('corlysis', 'db')
 dbToken   = config.get('corlysis', 'token')

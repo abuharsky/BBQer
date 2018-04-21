@@ -40,6 +40,7 @@ void setup()
   motor.setup();
   controller.setup();
   probe0.setup();
+  probe1.setup();
 
   // Setup callbacks for SerialCommand commands
   sCmd.addCommand("servo", servoControl);

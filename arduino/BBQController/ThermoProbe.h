@@ -8,12 +8,12 @@
 #define BCOEFFICIENT 3950       // The beta coefficient of the thermistor (usually 3000-4000)
 #define SERIESRESISTOR 100000    // the value of the 'other' resistor
 
-uint16_t samples[NUMSAMPLES];
-int sampleIndex = 0;
-float savedTemp = 0.0;
-unsigned long lastMs = 0;
 class ThermoProbe {
-    const byte pin;
+    byte pin;
+    uint16_t samples[NUMSAMPLES];
+    int sampleIndex = 0;
+    float savedTemp = 0.0;
+    unsigned long lastMs = 0;
     
   public:
 
