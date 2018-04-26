@@ -1,9 +1,11 @@
 #!/usr/bin/python
-import telepot, time, serial, threading, json, datetime, requests, configparser, os
-from telepot.loop import MessageLoop
+import telebot, time, serial, threading, json, datetime, requests, configparser, os
 from telebot import apihelper
 
-#read conf
+#-------------------------
+# config
+#-------------------------
+
 config = configparser.ConfigParser()
 config.read('/root/BBQer/cloudClient/configuration.txt')
 
@@ -24,37 +26,38 @@ dbToken   = config.get('corlysis', 'token')
 #---------
 ser = serial.Serial(usbDevice, usbSpeed)
 connected = False
-savedChatId = chatId
 
-bot = telepot.Bot(botToken)
+bot = telebot.TeleBot(botToken)
 
+#-------------------------
+# corlysis
+#-------------------------
 
 def plot_json(data):
-    obj = json.loads(data)
+	obj = json.loads(data)
 
-    # currenttime = '{0:%H:%M:%S}'.format(datetime.datetime.now())
+	# currenttime = '{0:%H:%M:%S}'.format(datetime.datetime.now())
 
-    airflow  = obj["airflow"]["level"]
-    damper   = obj["airflow"]["damper"]
-    motor    = obj["airflow"]["motor"]
-    curtemp  = obj["temperature"]["current"]
-    probe0   = obj["temperature"]["probe0"]
-    probe1   = obj["temperature"]["probe1"]
-    target   = obj["temperature"]["target"]
+	airflow  = obj["airflow"]["level"]
+	damper   = obj["airflow"]["damper"]
+	motor    = obj["airflow"]["motor"]
+	curtemp  = obj["temperature"]["current"]
+	probe0   = obj["temperature"]["probe0"]
+	probe1   = obj["temperature"]["probe1"]
+	target   = obj["temperature"]["target"]
 
-    url = 'https://corlysis.com:8086/write'
-    
-    params = {"db": dbName, "u": "token", "p": dbToken}
-    
-    payload = "temperature_data current="+curtemp+",target="+target+",probe0="+probe0+",probe1="+probe1+"\nairflow_data level="+airflow+",damper="+damper+",motor="+motor+"\n"
-    
-    r = requests.post(url, params=params, data=payload)
+	url = 'https://corlysis.com:8086/write'
+	
+	params = {"db": dbName, "u": "token", "p": dbToken}
+	
+	payload = "temperature_data current="+curtemp+",target="+target+",probe0="+probe0+",probe1="+probe1+"\nairflow_data level="+airflow+",damper="+damper+",motor="+motor+"\n"
+	
+	r = requests.post(url, params=params, data=payload)
 
 
-def save_chat_id(chat_id):
-	#print(chat_id)
-	#    global savedChatId
-	savedChatId = chat_id
+#-------------------------
+# serial
+#-------------------------
 
 def handle_data(data):
 	print(data)
@@ -63,8 +66,8 @@ def handle_data(data):
 	if (data.startswith( '{' )):
 		plot_json(data)
 	else:
-		if ((savedChatId is 'none') == False):
-			bot.sendMessage(savedChatId, 'serial: '+data)
+		if ((chatId is 'none') == False):
+			bot.send_message(chatId, 'serial: '+data)
 
 def read_from_port(ser):
 	global connected
@@ -73,41 +76,41 @@ def read_from_port(ser):
 		connected = True
 
 		while True:
-		   reading = ser.readline().decode()
-		   handle_data(reading)
+			reading = ser.readline().decode()
+			handle_data(reading)
 
 thread = threading.Thread(target=read_from_port, args=(ser,))
 thread.start()
 
-def handle(msg):
 
-	userName = msg['from']['first_name']+" "+msg['from']['last_name']
+#-------------------------
+# telegram bot
+#-------------------------
 
-	content_type, chat_type, chat_id = telepot.glance(msg)
+@bot.message_handler(commands=['cputemp'])
+def command_cputemp(m):
+	if (chatId == m.chat.id):
+		file = open("/etc/armbianmonitor/datasources/soctemp", "r")
+		bot.send_message(chatId, "CPU temp:{:.1f}C".format(float(file.read())/1000))  
 
-	save_chat_id(chat_id)
-
-	if (content_type == 'text'):
-		
-		command = msg['text']
-		print ('Got command: %s' % command)
-
-		if  '/hello' in command:
-			bot.sendMessage(chat_id, "Hello "+userName+"!")
-
-		if '/serial' in command:
-			ser.write(command[7:].encode())
-			ser.write(b'\n')
-
-		if '/cputemp' in command:
-			file = open("/etc/armbianmonitor/datasources/soctemp", "r") 
-			bot.sendMessage(chat_id, "CPU temp:{:.1f}C".format(float(file.read())/1000))  
+@bot.message_handler(commands=['serial'])
+def command_serial(m):
+	if (chatId == m.chat.id):
+		ser.write(m.text.encode())
+		ser.write(b'\n')
 
 
-# Add handle function to be called every received message.
-MessageLoop(bot, handle).run_as_thread()
 
-# Wait for new messages
-while 1:
-	time.sleep(20)
+def main_loop():
+	bot.polling(True)
+	while 1:
+		time.sleep(3)
+
+
+if __name__ == '__main__':
+	try:
+		main_loop()
+	except KeyboardInterrupt:
+		print >> sys.stderr, '\nExiting by user request.\n'
+		sys.exit(0)
 
