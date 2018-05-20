@@ -3,3 +3,5 @@ configuration.txt
 arduino/.build/
 arduino/lib/
 arduino/src
+*.pyc
+
