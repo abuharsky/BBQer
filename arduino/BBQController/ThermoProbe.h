@@ -15,12 +15,12 @@ class ThermoProbe {
     int sampleIndex = 0;
     float savedTemp = 0.0;
     int savedAverageADC = 0;
-    int resistanceAt25 = 100000;
+    long resistanceAt25 = 100000;
     unsigned long lastMs = 0;
     
   public:
 
-    ThermoProbe(byte attachToPin, int resistanceAt25) :
+    ThermoProbe(byte attachToPin, long resistanceAt25) :
       pin(attachToPin), resistanceAt25(resistanceAt25) {
     }
 
