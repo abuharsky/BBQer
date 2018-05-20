@@ -26,8 +26,11 @@ SmoothServo smoothServo(servo, SERVO_PIN);
 DCMotor motor(MOTOR_PIN);
 Damper damper(smoothServo, SERVO_MIN_ANGLE, SERVO_MAX_ANGLE);
 MAX6675 thermocouple(THERMO_CLK, THERMO_CS, THERMO_S0);
-ThermoProbe probe0(PROBE0_PIN, 100000);
-ThermoProbe probe1(PROBE1_PIN, 200000);
+ThermoProbe probe0(PROBE0_PIN, 100000, 3950);
+ThermoProbe probe1(PROBE1_PIN, 200000, 3950);
+ThermoProbe probe2(PROBE1_PIN, 200000, 3892);
+ThermoProbe probe3(PROBE1_PIN, 200000, 4064);
+ThermoProbe probe4(PROBE1_PIN, 200000, 3228);
 
 TemperatureController controller(damper, motor, thermocouple, probe0, probe1);
 
@@ -43,6 +46,9 @@ void setup()
   controller.setup();
   probe0.setup();
   probe1.setup();
+  probe2.setup();
+  probe3.setup();
+  probe4.setup();
 
   // Setup callbacks for SerialCommand commands
   sCmd.addCommand("servo", servoControl);
@@ -62,6 +68,9 @@ void loop()
   controller.loop();
   probe0.loop();
   probe1.loop();
+  probe2.loop();
+  probe3.loop();
+  probe4.loop();
   sCmd.readSerial();
 
   float temp = probe0.readCelsius();
@@ -73,7 +82,14 @@ void loop()
      Serial.print(", ");
      Serial.print(probe1.readCelsius());
      Serial.print(", ");
-     Serial.println(probe1.readADC());  
+     Serial.print(probe1.readADC());  
+     Serial.print(", ");
+     Serial.print(probe2.readCelsius());
+     Serial.print(", ");
+     Serial.print(probe3.readCelsius());
+     Serial.print(", ");
+     Serial.print(probe4.readCelsius());
+     Serial.println();
   }
 }
 

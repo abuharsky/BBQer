@@ -16,12 +16,13 @@ class ThermoProbe {
     float savedTemp = 0.0;
     int savedAverageADC = 0;
     long resistanceAt25 = 100000;
+    int betaCoefficient = 3950;
     unsigned long lastMs = 0;
     
   public:
 
-    ThermoProbe(byte attachToPin, long resistanceAt25) :
-      pin(attachToPin), resistanceAt25(resistanceAt25) {
+    ThermoProbe(byte attachToPin, long resistanceAt25, int betaCoefficient) :
+      pin(attachToPin), resistanceAt25(resistanceAt25), betaCoefficient(betaCoefficient) {
     }
 
     static int sortDesc(const void *cmp1, const void *cmp2) {
@@ -67,7 +68,7 @@ class ThermoProbe {
           float steinhart;
           steinhart = average / resistanceAt25;        // (R/Ro)
           steinhart = log(steinhart);                  // ln(R/Ro)
-          steinhart /= BCOEFFICIENT;                   // 1/B * ln(R/Ro)
+          steinhart /= betaCoefficient;                // 1/B * ln(R/Ro)
           steinhart += 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To)
           steinhart = 1.0 / steinhart;                 // Invert
           steinhart -= 273.15;                         // convert to C
