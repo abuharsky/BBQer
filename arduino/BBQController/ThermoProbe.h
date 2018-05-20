@@ -2,24 +2,26 @@
 #define ThermoProbe_h
 
 
-#define THERMISTORNOMINAL 180000 // resistance at 25 degrees C
+#define THERMISTORNOMINAL 100000 // resistance at 25 degrees C
 #define TEMPERATURENOMINAL 25   // temp. for nominal resistance (almost always 25 C)
 #define NUMSAMPLES 5            // how many samples to take and average, more takes longer, but is more 'smooth'
 #define BCOEFFICIENT 3950       // The beta coefficient of the thermistor (usually 3000-4000)
 #define SERIESRESISTOR 100000    // the value of the 'other' resistor
-#define DELTA 0.0 // correction value in degrees (added to return value)
+
 
 class ThermoProbe {
     byte pin;
     uint16_t samples[NUMSAMPLES];
     int sampleIndex = 0;
     float savedTemp = 0.0;
+    int savedAverageADC = 0;
+    int resistanceAt25 = 100000;
     unsigned long lastMs = 0;
     
   public:
 
-    ThermoProbe(byte attachToPin) :
-      pin(attachToPin) {
+    ThermoProbe(byte attachToPin, int resistanceAt25) :
+      pin(attachToPin), resistanceAt25(resistanceAt25) {
     }
 
     static int sortDesc(const void *cmp1, const void *cmp2) {
@@ -56,12 +58,14 @@ class ThermoProbe {
           }
           average /= NUMSAMPLES-2;
          
+	  savedAverageADC = average;
+
           // convert the value to resistance
           average = 1023 / average - 1;
           average = SERIESRESISTOR / average;
 
           float steinhart;
-          steinhart = average / THERMISTORNOMINAL;     // (R/Ro)
+          steinhart = average / resistanceAt25;        // (R/Ro)
           steinhart = log(steinhart);                  // ln(R/Ro)
           steinhart /= BCOEFFICIENT;                   // 1/B * ln(R/Ro)
           steinhart += 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To)
@@ -75,7 +79,11 @@ class ThermoProbe {
     }
 
     float readCelsius() {
-      return savedTemp + DELTA;
+      return savedTemp;
+    }
+
+    int readADC() {
+      return savedAverageADC;
     }
     
     void printState() {
