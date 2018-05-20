@@ -30,7 +30,7 @@ ThermoProbe probe0(PROBE0_PIN, 100000, 3950);
 ThermoProbe probe1(PROBE1_PIN, 200000, 3950);
 ThermoProbe probe2(PROBE1_PIN, 200000, 3892);
 ThermoProbe probe3(PROBE1_PIN, 200000, 4064);
-ThermoProbe probe4(PROBE1_PIN, 200000, 3228);
+ThermoProbe probe4(PROBE1_PIN, 200000, 4228);
 
 TemperatureController controller(damper, motor, thermocouple, probe0, probe1);
 
