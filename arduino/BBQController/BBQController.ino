@@ -28,9 +28,9 @@ Damper damper(smoothServo, SERVO_MIN_ANGLE, SERVO_MAX_ANGLE);
 MAX6675 thermocouple(THERMO_CLK, THERMO_CS, THERMO_S0);
 ThermoProbe probe0(PROBE0_PIN, 100000, 3950);
 ThermoProbe probe1(PROBE1_PIN, 200000, 3950);
-ThermoProbe probe2(PROBE1_PIN, 200000, 3892);
-ThermoProbe probe3(PROBE1_PIN, 200000, 4064);
-ThermoProbe probe4(PROBE1_PIN, 200000, 4228);
+ThermoProbe probe2(PROBE1_PIN, 200000, 4080);
+ThermoProbe probe3(PROBE1_PIN, 200000, 4120);
+ThermoProbe probe4(PROBE1_PIN, 200000, 4160);
 
 TemperatureController controller(damper, motor, thermocouple, probe0, probe1);
 
