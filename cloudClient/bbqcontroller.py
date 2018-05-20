@@ -12,7 +12,7 @@ config.read('/root/BBQer/cloudClient/configuration.txt')
 usbDevice = config.get('arduino', 'port')
 usbSpeed  = config.get('arduino', 'baud')
 
-chatId       = config.get('telegram', 'chatId')
+chatId       = int(config.get('telegram', 'chatId'))
 botToken     = config.get('telegram', 'botToken')
 proxyType    = config.get('telegram', 'proxyType')
 proxyAddress = config.get('telegram', 'proxyAddress')
@@ -96,10 +96,10 @@ def command_cputemp(m):
 @bot.message_handler(commands=['serial'])
 def command_serial(m):
 	if (chatId == m.chat.id):
-		ser.write(m.text.encode())
+		ser.write(m.text[7:].encode())
 		ser.write(b'\n')
 
-
+bot.polling()
 
 def main_loop():
 	bot.polling(True)

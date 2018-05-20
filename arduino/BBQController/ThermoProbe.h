@@ -2,11 +2,12 @@
 #define ThermoProbe_h
 
 
-#define THERMISTORNOMINAL 100000 // resistance at 25 degrees C
+#define THERMISTORNOMINAL 180000 // resistance at 25 degrees C
 #define TEMPERATURENOMINAL 25   // temp. for nominal resistance (almost always 25 C)
 #define NUMSAMPLES 5            // how many samples to take and average, more takes longer, but is more 'smooth'
 #define BCOEFFICIENT 3950       // The beta coefficient of the thermistor (usually 3000-4000)
 #define SERIESRESISTOR 100000    // the value of the 'other' resistor
+#define DELTA 0.0 // correction value in degrees (added to return value)
 
 class ThermoProbe {
     byte pin;
@@ -74,7 +75,7 @@ class ThermoProbe {
     }
 
     float readCelsius() {
-      return savedTemp;
+      return savedTemp + DELTA;
     }
     
     void printState() {

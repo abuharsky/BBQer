@@ -1,3 +1,5 @@
 .DS_Store
 configuration.txt
-
+arduino/.build/
+arduino/lib/
+arduino/src
