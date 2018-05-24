@@ -115,13 +115,9 @@ We will use your phones and tablets! And, of course, internet!
 So, after you setup your PI (you can use one of thousands instructions from internet), you need to setup python3 and required packages, just type in the pi terminal the commands below:
 
 > apt-get install python3
-> 
 > apt-get install python3-pip
-> 
 > pip3 install requests
-> 
-> pip3 install telepot
-> 
+> pip3 install telebot
 > pip3 install pyserial
 
 After installing, copy 
