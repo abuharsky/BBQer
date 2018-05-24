@@ -68,6 +68,11 @@ Also, you can optionally purchase:
 
 ![wiring](https://github.com/abuharsky/BBQer/raw/master/info/pic2.jpg)
 
+# BEFORE ASSEMBLING!!!
+
+Don't connect your motor to power converter.
+First you need to adjust output voltage to 12V.
+Using multimeter adjust voltage regulator on the blue box.
 
 
 ### Software
