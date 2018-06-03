@@ -187,6 +187,12 @@ class TemperatureController {
     }
 
     void printCurrentState() {
+      
+      float pitTemp = thermocouple.readCelsius();
+      if (isnan(pitTemp)) {
+        pitTemp = 0;
+      }
+      
       Serial.print("{");
           Serial.print("\"airflow\": {");
               Serial.print("\"level\": \"");    Serial.print(airFlowLevel);               Serial.print("\",");
@@ -194,7 +200,7 @@ class TemperatureController {
               Serial.print("\"motor\": \"");    Serial.print(motor.getPower());           Serial.print("\"");
           Serial.print("},");
           Serial.print("\"temperature\": {");
-              Serial.print("\"current\": \"");  Serial.print(thermocouple.readCelsius()); Serial.print("\",");
+              Serial.print("\"current\": \"");  Serial.print(pitTemp);                    Serial.print("\",");
               Serial.print("\"probe0\": \"");   Serial.print(probe0.readCelsius());       Serial.print("\",");
               Serial.print("\"probe1\": \"");   Serial.print(probe1.readCelsius());       Serial.print("\",");
               Serial.print("\"target\": \"");   Serial.print(targetTemperature);          Serial.print("\"");
