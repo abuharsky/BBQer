@@ -68,6 +68,11 @@ Also, you can optionally purchase:
 
 ![wiring](https://github.com/abuharsky/BBQer/raw/master/info/pic2.jpg)
 
+# BEFORE ASSEMBLING!!!
+
+Don't connect your motor to power converter.
+First you need to adjust output voltage to 12V.
+Using multimeter adjust voltage regulator on the blue box.
 
 
 ### Software
@@ -115,7 +120,7 @@ So, after you setup your PI (you can use one of thousands instructions from inte
 > 
 > pip3 install requests
 > 
-> pip3 install telepot
+> pip3 install telebot
 > 
 > pip3 install pyserial
 
