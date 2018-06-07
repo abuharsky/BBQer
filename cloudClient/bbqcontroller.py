@@ -34,7 +34,7 @@ serial_port = serial.Serial(usbDevice, usbSpeed)
 main_thread_queue = queue.Queue()
 network_thread_queue = queue.Queue()
 
-logging.basicConfig(filename="bbqcontroller"+str(time.time())+".log", level=logging.INFO)
+logging.basicConfig(filename="/root/BBQer/cloudClient/logs/bbqcontroller"+str(time.time())+".log", level=logging.INFO)
 
 
 def run_on_main_thread(function):
@@ -167,7 +167,7 @@ thread_telegram_bot.start()
 # checker
 #-------------------------
 
-def connected_to_internet(url='http://www.google.com/', timeout=5):
+def connected_to_internet():
 	global networkErrorsCounter
 	if networkErrorsCounter > networkMaxErrorCount:
 		print("Too many network errors")
@@ -175,11 +175,12 @@ def connected_to_internet(url='http://www.google.com/', timeout=5):
 		return False
 	
 	try:
-		_ = requests.get(url, timeout=timeout)
+		response = requests.get('https://api.telegram.org/bot' + botToken + '/getMe', proxies=proxy, timeout=10)
+		response.raise_for_status()
 		return True
-	except requests.ConnectionError:
-		logging.info("No internet connection available.")
-		print("No internet connection available.")
+	except Exception as e:
+		logging.info("No internet connection available. " + str(e))
+		print("No internet connection available. " + str(e))
 	return False
 
 def check_internet_connection_and_reconnect():
@@ -192,6 +193,7 @@ def check_internet_connection_and_reconnect():
 				print('no internet, running command')
 				networkRestartRetriesBeforeRestart += 1
 				os.system(networkLostCommand)
+				run_on_network_thread(lambda: telegram_send_message(chatId, 'reconnected to the internet.'))
 			else:
 				logging.info('no internet, rebooting')
 				print('no internet, rebooting')
