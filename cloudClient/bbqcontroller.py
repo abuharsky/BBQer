@@ -157,6 +157,9 @@ def process_telegram_message(message_json):
 			run_on_network_thread(lambda: telegram_send_message(chatId, "CPU temp:{:.1f}C".format(float(file.read())/1000)))  
 		elif text.startswith('/serial'):
 			run_on_main_thread(lambda: write_line_to_serial_port(text[8:]))
+		elif text.startswith('/shutdown'):
+			run_on_network_thread(lambda: telegram_send_message(chatId, "Shutting down..."))  
+			run_on_main_thread(lambda: os.system('systemctl poweroff'))
 
 thread_telegram_bot = threading.Thread(target=telegram_get_updates)
 thread_telegram_bot.start()
